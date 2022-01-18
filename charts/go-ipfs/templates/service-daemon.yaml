@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "go-ipfs.fullname" . }}-daemon
+  labels:
+    {{- include "go-ipfs.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: 5001
+      targetPort: daemon
+      protocol: TCP
+      name: daemon
+  selector:
+    {{- include "go-ipfs.selectorLabels" . | nindent 4 }}
